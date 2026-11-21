@@ -1,0 +1,19 @@
+sources:
+  betty-mysql-db:
+    kind: mysql
+    host: ${DB_HOST}
+    port: ${DB_PORT}
+    database: ${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+tools:
+  search-products-by-name:
+    kind: mysql-sql
+    source: betty-mysql-db
+    description: Search Betty's Bird Boutique products by name to check availability and pricing.
+    parameters:
+      - name: product_name
+        type: string
+        description: Full or partial name of the bird product to search for.
+    statement: SELECT id, product_name, price FROM products WHERE product_name LIKE CONCAT('%', ?, '%');
